@@ -9,23 +9,6 @@ export default defineConfig([
   globalIgnores(['dist']),
   {
     files: ['**/*.{js,jsx}'],
-    extends: [
-      js.configs.recommended,
-      react.configs['jsx-runtime'].rules,     // added the new JSX transform rules
-      react.configs['recommended'],
-      reactHooks.configs['recommended-latest'],
-      reactRefresh.configs.vite,
-    ],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-      parserOptions: {
-        ecmaVersion: 'latest',
-        ecmaFeatures: { jsx: true },
-        sourceType: 'module',
-      },
-    },
-    // React specific settings (Plugin settings & activation)
     settings: {
       react: {
         version: 'detect',    // Automatically detect the version of React to use
@@ -36,16 +19,26 @@ export default defineConfig([
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
     },
+    extends: [
+      js.configs.recommended,
+    ],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        ecmaFeatures: { jsx: true },
+        sourceType: 'module',
+      },
+    },
 
     rules: {
-      ...js.configs.recommended.rules,
-      ...react.configs.recommended.rules,
-      ...react.configs['jsx-runtime'].rules,
-      ...reactHooks.configs['recommended-latest'].rules, 
-
-      // 'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
-      'no-unsaved-vars': 'warn',     // this changes the error to a warning
+      'no-unused-vars': ['warn', { varsIgnorePattern: '^[A-Z_]' }],   // this changes the error to a warning
       'react/prop-types': 'off',     // this suppresses warnings about not using prop-types
+
+      'react/jsx-uses-react': 'off', 
+      'react/react-in-jsx-scope': 'off',  // these two rules are not needed with React 17 and above
+      'react/jsx-filename-extension':['warn', {extensions: ['.jsx']}], // a rule to warn about using .jsx files
     },
   },
 
