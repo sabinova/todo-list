@@ -1,6 +1,6 @@
 import './App.css';
-import TodoList from './TodoList';
-import TodoForm from './TodoForm';
+import TodoList from './features/TodoList/TodoList';
+import TodoForm from './features/TodoForm';
 import {useState} from 'react';
 
 
@@ -12,13 +12,6 @@ function addTodo(title) {
     setTodoList([...todoList, newTodo]);
   };
 
-// Create a helper function completeTodo. It:
-// takes an id
-// maps through the todoList and:
-// if the current todo.id matches the id, return a new object that destructures the current todo and isCompleted set to true
-// otherwise (if todo.id does not match the id) return the todo
-// saves the resulting array to a const updatedTodos
-// update the todoList state with updatedTodos
 
 function completeTodo(id) {
   const updatedTodos = todoList.map((todo) => {
